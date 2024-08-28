@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ups..</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f8ff;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+        
+        .box {
+            text-align: center;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 400px;
+            transition: transform 0.3s ease;
+        }
+        
+        .question {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+        
+        .button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .button-yes {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        .button-no {
+            background-color: #f44336;
+            color: white;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 600px) {
+            .question {
+                font-size: 1.2rem;
+            }
+            
+            .button {
+                font-size: 0.9rem;
+                padding: 8px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="box" id="box">
+        <div class="question">¿Eres Gay?</div>
+        <div class="buttons">
+            <button class="button button-yes" id="yesButton">Sí</button>
+            <button class="button button-no" id="noButton">No</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+    <script>
+        const noButton = document.getElementById('noButton');
+        const yesButton = document.getElementById('yesButton');
+        const box = document.getElementById('box');
+        
+        let originalTransform = '';
+
+        // Save the original position of the 'No' button
+        function saveOriginalPosition() {
+            const style = window.getComputedStyle(noButton);
+            originalTransform = style.transform;
+        }
+
+        // Save the original position when the page loads
+        window.addEventListener('load', saveOriginalPosition);
+
+        noButton.addEventListener('mouseover', function() {
+            const randomX = Math.floor(Math.random() * 300) - 150;
+            const randomY = Math.floor(Math.random() * 300) - 150;
+            
+            noButton.style.transform = `translate(${randomX}px, ${randomY}px)`;
+        });
+
+        yesButton.addEventListener('click', function() {
+            Swal.fire({
+                title: '¡Felicitaciones!',
+                text: 'Eres gay, te respeto',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            }).then(() => {
+                // After the alert is closed, reset the position of the 'No' button
+                noButton.style.transform = originalTransform;
+            });
+        });
+    </script>
+</body>
+</html>
